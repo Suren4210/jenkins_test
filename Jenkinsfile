@@ -10,13 +10,13 @@ pipeline {
 	    stage ('scm') {
 		    steps {
 			    // Get some code from a GitHub repository
-                git credentialsId: 'github', url: 'git@github.com:sathishbob/jenkins_test.git'
+                git credentialsId: 'github', url: 'git@github.com:Suren4210/jenkins_test.git'
 				}
 			}
         stage('Build') {
             steps {
                // Run Maven on a Unix agent.
-                sh "mvn -Dmaven.test.failure.ignore=true -f api-gateway clean package"
+                sh "mvn -Dmaven.test.failure.ignore=true -f api-gatway clean package"
 
                 // To run Maven on a Windows agent, use
                 // bat "mvn -Dmaven.test.failure.ignore=true clean package"
@@ -26,8 +26,8 @@ pipeline {
                 // If Maven was able to run the tests, even if some of the test
                 // failed, record the test results and archive the jar file.
                 success {
-                    junit stdioRetention: '', testResults: 'api-gateway/target/surefire-reports/*.xml'
-                    archiveArtifacts 'target/*.jar'
+                    junit stdioRetention: '', testResults: 'api-gateway/target/*.jar'
+                    archiveArtifacts artifacts: 'api-gateway/target/*.jar', followSymlinks: false
                 }
             }
         }
